@@ -1,0 +1,92 @@
+# Dependencies
+node_modules/
+frontend/node_modules/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+frontend/dist/
+frontend/dist-ssr/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Misc
+*.gz
+*.bz2
+*.xz
+*.tar
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+#Imaging
+*.nii.gz
+*.nii
+*.png
+*.pdb.gz
+*.pdb.bz2
+*.pdb.xz
+*.pdb.tar
+*.pdb.tar.gz
+*.pdb.tar.bz2
+*.pdb.tar.xz
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Data
+data/images/*
+!data/images/.gitkeep
+
+node_modules
+
+# General media files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.svg
+*.mp4
+*.mp3
+
+# Private / sensitive data — never commit these
+mike_bin/
+backups/
+*.db
+*.db-shm
+*.db-wal
+*.pem
+*.key
+*.xlsx
+*.xls
+scripts/sorting/
+scripts/exports_of_DB/
+scripts/samples-votes-export-*.csv
+sites/
+data/checking_counts/
+data/ignore/
+data/png_check/
+data/sub_dirs_anycase.txt
+data/t1w_counts.csv
+data/imagestopullcsv*.csv
+data/images.txt
+data/them.txt
