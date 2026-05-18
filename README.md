@@ -53,4 +53,4 @@ We have purr-pared robust documentation for you:
 
 Found a bug? Want to add a feature? Check out the [Development Guide](docs/DEVELOPMENT.md) first!
 
-*Made with ❤️ and 🐱 by the MegaSwipes contributors. Meow*
+*Made with ❤️ and 🐱 by the Child Mind Institute contributors. Meow*
