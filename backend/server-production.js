@@ -7,8 +7,7 @@ import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-import fs from 'fs/promises';
-import db from './backend/database.js';
+import db from './database.js';
 import { 
   generateToken, 
   verifyToken, 
@@ -17,8 +16,8 @@ import {
   requireAuth, 
   requireAdmin,
   logout 
-} from './backend/auth.js';
-import sshService from './backend/ssh-service.js';
+} from './auth.js';
+import sshService from './ssh-service.js';
 
 dotenv.config();
 
@@ -201,7 +200,7 @@ app.get('/api/auth/me', requireAuth, (req, res) => {
 // ... (Copy all other routes from backend/server.js)
 
 // Serve static files from frontend/dist
-app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'dist')));
 
 // Serve images from data/images
 app.get('/images/:token/:filename', async (req, res) => {
@@ -222,7 +221,7 @@ app.get('/images/:token/:filename', async (req, res) => {
     }
     
     // Serve the file
-    const imagePath = path.join(__dirname, 'data', 'images', filename);
+    const imagePath = path.join(__dirname, '..', 'data', 'images', filename);
     res.sendFile(imagePath);
   } catch (error) {
     console.error('Image serve error:', error);
@@ -232,7 +231,7 @@ app.get('/images/:token/:filename', async (req, res) => {
 
 // Catch-all route to serve index.html for client-side routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'dist', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'dist', 'index.html'));
 });
 
 // Start server

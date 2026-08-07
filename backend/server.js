@@ -15,6 +15,7 @@ import {
   requireAdmin
 } from './auth.js';
 import { registerSplitRoutes } from './split-routes.js';
+import sshService from './ssh-service.js';
 
 // Route modules
 import { registerAuthRoutes } from './routes/auth-routes.js';
@@ -1265,13 +1266,6 @@ app.delete('/api/admin/ssh/cache/:datasetName?', requireAuth, requireAdmin, (req
     res.status(500).json({ error: error.message });
   }
 });
-
-// ============================================================================
-// DATASET SPLIT MANAGEMENT
-// ============================================================================
-
-// Register split routes
-registerSplitRoutes(app, db, requireAuth, requireAdmin);
 
 // ============================================================================
 // HEALTH CHECK

@@ -3,9 +3,13 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import bcrypt from 'bcrypt';
 import { randomUUID } from 'crypto';
+import { mkdirSync } from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+// Ensure the data directory exists so the database file can be created
+mkdirSync(join(__dirname, '..', 'data'), { recursive: true });
 
 const dbPath = join(__dirname, '..', 'data', 'neuroqc.db');
 const db = new Database(dbPath);

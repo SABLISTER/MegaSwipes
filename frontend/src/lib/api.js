@@ -8,16 +8,11 @@ function getApiBaseUrl() {
     return import.meta.env.VITE_API_URL;
   }
 
-  // Detect hostname from current location
-  const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-  const protocol = typeof window !== 'undefined' ? window.location.protocol : 'http:';
-
-  // Use current hostname (works for both localhost and megaswipes domain)
-  // If accessing via megaswipes:5173, API will be megaswipes:3000
-  // If accessing via localhost:5173, API will be localhost:3000
-  const apiHost = hostname;
-
-  return `${protocol}//${apiHost}:3000/api`;
+  // Default to a same-origin relative URL. In development the Vite dev server
+  // proxies /api to the backend; in production the backend serves the built
+  // frontend on the same origin. This also works when the app is reached via
+  // a LAN hostname (e.g. http://megaswipes:5173) because the proxy is server-side.
+  return '/api';
 }
 
 const API_BASE_URL = getApiBaseUrl();
@@ -433,12 +428,11 @@ class ApiClient {
     // Dynamically determine base URL
     let baseUrl;
     if (import.meta.env.VITE_API_URL) {
-      baseUrl = import.meta.env.VITE_API_URL.replace('/api', '');
+      baseUrl = import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '');
     } else {
-      const hostname = typeof window !== 'undefined' ? window.location.hostname : 'localhost';
-      const protocol = typeof window !== 'undefined' ? window.location.protocol : 'http:';
-      // Use current hostname (works for both localhost and megaswipes domain)
-      baseUrl = `${protocol}//${hostname}:3000`;
+      // Same-origin relative URL — the Vite dev server proxies /images to the
+      // backend, and in production the backend serves the built frontend.
+      baseUrl = '';
     }
 
     return `${baseUrl}/images/${secureToken}`;

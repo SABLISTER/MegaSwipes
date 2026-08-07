@@ -2,6 +2,12 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 
+// The backend runs on the same machine as the Vite dev server, so the proxy
+// targets localhost. Override with VITE_PROXY_TARGET if the backend lives elsewhere.
+const backendTarget =
+  process.env.VITE_PROXY_TARGET ||
+  `http://127.0.0.1:${process.env.BACKEND_PORT || process.env.PORT || 3000}`
+
 export default defineConfig({
   plugins: [vue()],
   resolve: {
@@ -25,16 +31,15 @@ export default defineConfig({
     cors: true,
     proxy: {
       '/api': {
-        target: 'http://megaswipes:3000',
+        target: backendTarget,
         changeOrigin: true,
         secure: false,
       },
       '/images': {
-        target: 'http://megaswipes:3000',
+        target: backendTarget,
         changeOrigin: true,
         secure: false,
       },
     },
   },
 })
-
