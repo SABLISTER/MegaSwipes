@@ -2,7 +2,7 @@
   <div class="home">
     <div class="jumbotron bg-light p-5 rounded-3">
       <div class="text-center mb-4">
-        <img src="/Users/michaelhouse/MegaSwipes/MegaSwipes/frontend/src/views/megaswipes.png" alt="MegaSwipes Logo" class="logo-img">
+        <img src="/megaswipes.png" alt="MegaSwipes Logo" class="logo-img">
       </div>
       <h1 class="display-4">Welcome to MegaSwipes</h1>
       <p class="lead">

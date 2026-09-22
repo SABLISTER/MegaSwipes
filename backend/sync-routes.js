@@ -1,6 +1,6 @@
 import express from 'express';
 import syncManager from './sync.js';
-import { authenticateToken } from './auth.js';
+import { requireAuth } from './auth.js';
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ const router = express.Router();
  */
 
 // Initialize sync with Supabase credentials
-router.post('/init', authenticateToken, async (req, res) => {
+router.post('/init', requireAuth, async (req, res) => {
   const { supabaseUrl, supabaseKey } = req.body;
 
   if (!supabaseUrl || !supabaseKey) {
@@ -35,12 +35,12 @@ router.post('/init', authenticateToken, async (req, res) => {
 });
 
 // Get sync status
-router.get('/status', authenticateToken, (req, res) => {
+router.get('/status', requireAuth, (req, res) => {
   res.json(syncManager.getStatus());
 });
 
 // Trigger full sync
-router.post('/sync', authenticateToken, async (req, res) => {
+router.post('/sync', requireAuth, async (req, res) => {
   if (!syncManager.isOnline()) {
     return res.status(503).json({ 
       error: 'Sync not available - offline mode or not initialized' 
@@ -63,7 +63,7 @@ router.post('/sync', authenticateToken, async (req, res) => {
 });
 
 // Set conflict resolution strategy
-router.post('/conflict-resolution', authenticateToken, (req, res) => {
+router.post('/conflict-resolution', requireAuth, (req, res) => {
   const { strategy } = req.body;
 
   if (!strategy) {
@@ -90,7 +90,7 @@ router.post('/conflict-resolution', authenticateToken, (req, res) => {
 // Auto-sync configuration
 let autoSyncInterval = null;
 
-router.post('/auto-sync', authenticateToken, (req, res) => {
+router.post('/auto-sync', requireAuth, (req, res) => {
   const { enabled, intervalMinutes } = req.body;
 
   if (enabled) {
